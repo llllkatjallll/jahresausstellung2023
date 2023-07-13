@@ -6,7 +6,7 @@ let sketch = function (p) {
   let height = 0;
   let currentSketch = 1;
   let timerStart = 0; //variable to hold the start time of each iteration of the timer
-  let timerLength = 20000; //length of the timer (in milliseconds)
+  let timerLength = 180000; //length of the timer (in milliseconds)
   let timerCount = 0; //number of times the timer has reset
 
 
@@ -120,8 +120,15 @@ let sketch = function (p) {
   let webcam; // Webcam
   let webcamCanvas; // Fläche für die Webcam
 
+  let anleitungTaschenmesser, anleitungFligolin, anleitungRatava, anleitungRegen;
 
   p.preload = function () {
+
+    //anleitungen
+    anleitungTaschenmesser = p.loadImage("data/anleitung-taschenmesser.png");
+    anleitungFligolin = p.loadImage("data/anleitung-fligolin.png");
+    anleitungRatava = p.loadImage("data/anleitung-ratava.png");
+    anleitungRegen = p.loadImage("data/anleitung-regen.png");
 
     //Preload Taschenmesser
     messerbild = p.loadImage("victori_body.png");
@@ -212,7 +219,7 @@ let sketch = function (p) {
       timerCount++; //increment the number of times the timer has reset
       console.log(timerCount); //print number of timer resets to console
 
-      if (currentSketch < 1) {
+      if (currentSketch < 2) {
         currentSketch = currentSketch + 1;
       } else {
         currentSketch = 0;
@@ -225,6 +232,11 @@ let sketch = function (p) {
 
     if (currentSketch == 0) {
       p.taschenmesserDraw();
+
+      p.push();
+      p.imageMode(p.CENTER);
+      p.image(anleitungTaschenmesser, width/2, height - 100, anleitungTaschenmesser.width/2.5,anleitungTaschenmesser.height/2.5,);
+      p.pop();
     }
 
     if (currentSketch == 1) {
@@ -233,12 +245,20 @@ let sketch = function (p) {
         
       }
       p.fligolinDraw();
+      p.push();
+      p.imageMode(p.CENTER);
+      p.image(anleitungFligolin, width/2, height - 100, anleitungFligolin.width/2.5,anleitungFligolin.height/2.5,);
+      p.pop();
     } else {
       fligolinSetupActive = false;
     }
 
     if (currentSketch == 3) {
       //p.rainDraw();
+      p.push();
+      p.imageMode(p.CENTER);
+      p.image(anleitungRegen, width/2, height - 100, anleitungRegen.width/2.5,anleitungRegen.height/2.5,);
+      p.pop();
     }
 
     if (currentSketch == 2) {
@@ -246,6 +266,11 @@ let sketch = function (p) {
         p.ratavaSetup();
       }
       p.ratavaDraw();
+
+      p.push();
+      p.imageMode(p.CENTER);
+      p.image(anleitungRatava, width/2, height - 100, anleitungRatava.width/2.5,anleitungRatava.height/2.5,);
+      p.pop();
     }
 
   }
@@ -262,7 +287,7 @@ let sketch = function (p) {
   p.ratavaDraw = function () {
     //hintergrundfarbe einstellen
     p.background(212, 230, 255);
-
+    p.imageMode(p.CORNER);
     //Gif abspielen
     //p.image(windGif, width/2-600, height/2-450, 1200, 900);
 
@@ -758,11 +783,11 @@ let sketch = function (p) {
   p.mousePressed = function () {
 
     //p.fligolinSetup();
-/*     if (currentSketch < 3) {
+    if (currentSketch < 3) {
       currentSketch = currentSketch + 1;
     } else {
       currentSketch = 0;
-    } */
+    } 
 
   }
 
