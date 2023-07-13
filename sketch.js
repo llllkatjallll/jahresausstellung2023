@@ -4,7 +4,7 @@ let sketch = function (p) {
   let canvas;
   let width = 0;
   let height = 0;
-  let currentSketch = 1;
+  let currentSketch = 2;
   let timerStart = 0; //variable to hold the start time of each iteration of the timer
   let timerLength = 180000; //length of the timer (in milliseconds)
   let timerCount = 0; //number of times the timer has reset
@@ -176,6 +176,7 @@ let sketch = function (p) {
     height = window.innerHeight;
     canvas = p.createCanvas(width, height);
     canvas.parent("p5sketch");
+    p.noCursor();
 
     //FLIGOLIN
     ratio = width / hintergrundBild.width;
@@ -266,7 +267,10 @@ let sketch = function (p) {
         p.ratavaSetup();
       }
       p.ratavaDraw();
-
+      p.push();
+      p.fill(0);
+      p.rect(0,height-10, width,10);
+      p.pop();
       p.push();
       p.imageMode(p.CENTER);
       p.image(anleitungRatava, width/2, height - 100, anleitungRatava.width/2.5,anleitungRatava.height/2.5,);
@@ -286,7 +290,7 @@ let sketch = function (p) {
 
   p.ratavaDraw = function () {
     //hintergrundfarbe einstellen
-    p.background(212, 230, 255);
+    p.background(0, 0, 0);
     p.imageMode(p.CORNER);
     //Gif abspielen
     //p.image(windGif, width/2-600, height/2-450, 1200, 900);
@@ -699,7 +703,7 @@ let sketch = function (p) {
     letztePosition.y = punktA.y;
 
     if (zielErreicht == false) {
-      if (geschwindigkeit <= 20) {
+      if (geschwindigkeit <= 14) {
         if (bildY <= -(10000 * ratio) / 2 + height) {
 
           bildY = -(10000 * ratio) / 2 + height;
@@ -734,7 +738,7 @@ let sketch = function (p) {
           p.pop();
         }
       } else {
-        bildY = bildY + 120;
+        bildY = bildY + 150;
         aktuellesBild = p.frameCount % 3;
 
         let breiteZuhoehe = bild.width / bild.height;
