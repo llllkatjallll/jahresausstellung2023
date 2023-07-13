@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Input Module</title>
+    <meta charset="utf-8">
+  <link rel="icon" href="favicon.ico">
+
+  <!-- p5 -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script> 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.sound.min.js"></script>
+
+  <!-- Mediapipe -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils_3d/control_utils_3d.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+
+  <div class="container">
+    <video class="input_video" style="display: none;"></video>
+    <canvas class="output_canvas" style="display: none" width="640px" height="360px"></canvas>
+  </div>
+
+ <div id="p5sketch"></div> 
+
+<script>
+  //Hier werden Variablen angelegt für Hand/Körper/Gesichts-Koordinaten, die wir später verwenden werden
+  let bodyPositionen = [];
+
+</script>
+
+<script type="module" src="./mediapipe-script.js"></script>
+<script type="module" src="./sketch.js"></script>
+
+</body>
+</html>
