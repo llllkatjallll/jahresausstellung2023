@@ -718,7 +718,7 @@ let sketch = function (p) {
           p.push();
           p.translate(mittelpunkt.x, mittelpunkt.y);
           p.rotate(neigungswinkel);
-          p.image(bild, 0, 0, breiteZuhoehe * distanz*1.4, distanz*1.4);
+          p.image(bild, 0, 0, breiteZuhoehe * distanz*2.2, distanz*2.2);
           p.pop();
 
         } else {
@@ -734,7 +734,7 @@ let sketch = function (p) {
           p.push();
           p.translate(mittelpunkt.x, mittelpunkt.y);
           p.rotate(neigungswinkel);
-          p.image(bild, 0, 0, breiteZuhoehe * distanz*1.4, distanz*1.4);
+          p.image(bild, 0, 0, breiteZuhoehe * distanz*2.2, distanz*2.2);
           p.pop();
         }
       } else {
@@ -748,7 +748,7 @@ let sketch = function (p) {
         p.push();
         p.translate(mittelpunkt.x, mittelpunkt.y);
         p.rotate(neigungswinkel);
-        p.image(imgs[aktuellesBild], 0, 0, breiteZuhoehe * distanz*1.4, distanz*1.4);
+        p.image(imgs[aktuellesBild], 0, 0, breiteZuhoehe * distanz*2.2, distanz*2.2);
         p.pop();
       }
     } else {
@@ -763,7 +763,7 @@ let sketch = function (p) {
       p.push();
       p.translate(mittelpunkt.x, mittelpunkt.y);
       p.rotate(neigungswinkel);
-      p.image(imgs[aktuellesBild], 0, 0, breiteZuhoehe * distanz*1.4, distanz*1.4);
+      p.image(imgs[aktuellesBild], 0, 0, breiteZuhoehe * distanz*2.2, distanz*2.2);
       p.pop();
 
 
