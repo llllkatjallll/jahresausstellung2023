@@ -4,7 +4,7 @@ let sketch = function (p) {
   let canvas;
   let width = 0;
   let height = 0;
-  let currentSketch = 2;
+ 
   let timerStart = 0; //variable to hold the start time of each iteration of the timer
   let timerLength = 180000; //length of the timer (in milliseconds)
   let timerCount = 0; //number of times the timer has reset
@@ -188,7 +188,7 @@ let sketch = function (p) {
     sound.setVolume(volumeRain);
     sound.loop();
 
-    for (let i = 0; i < 5000; i++) {
+    for (let i = 0; i < 1000; i++) {
       drops.push(new Drop());
     }
   }
@@ -220,7 +220,7 @@ let sketch = function (p) {
       timerCount++; //increment the number of times the timer has reset
       console.log(timerCount); //print number of timer resets to console
 
-      if (currentSketch < 2) {
+      if (currentSketch < 3) {
         currentSketch = currentSketch + 1;
       } else {
         currentSketch = 0;
@@ -254,17 +254,18 @@ let sketch = function (p) {
       fligolinSetupActive = false;
     }
 
-    if (currentSketch == 3) {
-      //p.rainDraw();
+    if (currentSketch == 2) {
+      p.rainDraw();
       p.push();
       p.imageMode(p.CENTER);
       p.image(anleitungRegen, width/2, height - 100, anleitungRegen.width/2.5,anleitungRegen.height/2.5,);
       p.pop();
     }
 
-    if (currentSketch == 2) {
+    if (currentSketch == 3) {
       if (!ratavaSetupActive) {
         p.ratavaSetup();
+        sound.setVolume(0);
       }
       p.ratavaDraw();
       p.push();
@@ -465,10 +466,20 @@ let sketch = function (p) {
 
       //p.punkteZeichnen(); //Funktion Kreise zeichnen, wo finger sind
       p.geschwindigkeitBerechnenRain(); // Funktion Geschwindigkeit
-      p.regen();
+      
+    } else{
+      if(regenStaerke >= 5){
+        regenStaerke = regenStaerke - 10;
+      }
 
-
+      if(volumeRain >= 0.05){
+        volumeRain = volumeRain - 0.05;
+        sound.setVolume(volumeRain);
+      }
     }
+    p.regen();
+    //console.log(regenStaerke);
+    console.log(volumeRain);
   }
 
   p.geschwindigkeitBerechnenRain = function () {
@@ -484,10 +495,12 @@ let sketch = function (p) {
       }
 
     } else {
-      regenStaerke = regenStaerke + geschwindigkeit / 5;
+      if(regenStaerke < 950){
+        regenStaerke = regenStaerke + geschwindigkeit / 5;
+      }
     }
 
-    volumeRain = p.map(regenStaerke, 0, 50, 0, 1);
+    volumeRain = p.map(regenStaerke, 0, 50, 0, 0.6);
     sound.setVolume(volumeRain);
   }
 
@@ -498,8 +511,6 @@ let sketch = function (p) {
     for (let i = 0; i < regenStaerke; i++) {
       drops[i].fall();
       drops[i].show();
-      //let bgColor = p.map(regenStaerke, 0, 499, 255, 2); // calculate background color based on rain intensity
-      // p.background(bgColor);
     }
   }
 
@@ -718,7 +729,7 @@ let sketch = function (p) {
           p.push();
           p.translate(mittelpunkt.x, mittelpunkt.y);
           p.rotate(neigungswinkel);
-          p.image(bild, 0, 0, breiteZuhoehe * distanz*2.2, distanz*2.2);
+          p.image(bild, 0, 0, breiteZuhoehe * distanz*2.4, distanz*2.4);
           p.pop();
 
         } else {
@@ -734,11 +745,11 @@ let sketch = function (p) {
           p.push();
           p.translate(mittelpunkt.x, mittelpunkt.y);
           p.rotate(neigungswinkel);
-          p.image(bild, 0, 0, breiteZuhoehe * distanz*2.2, distanz*2.2);
+          p.image(bild, 0, 0, breiteZuhoehe * distanz*2.4, distanz*2.4);
           p.pop();
         }
       } else {
-        bildY = bildY + 150;
+        bildY = bildY + 190;
         aktuellesBild = p.frameCount % 3;
 
         let breiteZuhoehe = bild.width / bild.height;
@@ -748,7 +759,7 @@ let sketch = function (p) {
         p.push();
         p.translate(mittelpunkt.x, mittelpunkt.y);
         p.rotate(neigungswinkel);
-        p.image(imgs[aktuellesBild], 0, 0, breiteZuhoehe * distanz*2.2, distanz*2.2);
+        p.image(imgs[aktuellesBild], 0, 0, breiteZuhoehe * distanz*2.4, distanz*2.4);
         p.pop();
       }
     } else {
@@ -763,7 +774,7 @@ let sketch = function (p) {
       p.push();
       p.translate(mittelpunkt.x, mittelpunkt.y);
       p.rotate(neigungswinkel);
-      p.image(imgs[aktuellesBild], 0, 0, breiteZuhoehe * distanz*2.2, distanz*2.2);
+      p.image(imgs[aktuellesBild], 0, 0, breiteZuhoehe * distanz*2.4, distanz*2.4);
       p.pop();
 
 
