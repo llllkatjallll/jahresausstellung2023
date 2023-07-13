@@ -487,7 +487,7 @@ let sketch = function (p) {
     let geschwindigkeit = p.abs(zeigefinger.y - letztePositionRain.y);
     letztePositionRain.y = zeigefinger.y;
     //p.text(p.int(geschwindigkeit), 100,100);
-    if (geschwindigkeit <= 20) {
+    if (geschwindigkeit <= 7) {
       if (regenStaerke <= 10) {
         regenStaerke = 0;
       } else {
