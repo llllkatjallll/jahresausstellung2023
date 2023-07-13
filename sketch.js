@@ -66,7 +66,7 @@ let sketch = function (p) {
 
   // RAIN /////////////////////////
   let zeigefinger = p.createVector(0, 0);//var für Zeigefinger
-  let letztePositionRain = p.createVector(0, 0); //var für Funktion Geschwindigkeit
+  let letztePositionRain = p.createVector(1000, 500); //var für Funktion Geschwindigkeit
   let regenStaerke = 1; //var für regenstärke
   let drops = [];
   let geschwindigkeit;
@@ -267,6 +267,7 @@ let sketch = function (p) {
         p.ratavaSetup();
         sound.setVolume(0);
       }
+      sound.setVolume(0);
       p.ratavaDraw();
       p.push();
       p.fill(0);
@@ -468,9 +469,11 @@ let sketch = function (p) {
       p.geschwindigkeitBerechnenRain(); // Funktion Geschwindigkeit
       
     } else{
-      if(regenStaerke >= 5){
-        regenStaerke = regenStaerke - 10;
+      if(regenPuffer >= 25){
+        regenPuffer = regenPuffer - 25;
       }
+      
+      regenMap = p.map(regenPuffer,0,1950, 0, 900);
 
       if(volumeRain >= 0.05){
         volumeRain = volumeRain - 0.05;
@@ -478,16 +481,40 @@ let sketch = function (p) {
       }
     }
     p.regen();
-    //console.log(regenStaerke);
-    console.log(volumeRain);
+    //console.log(regenPuffer);
+    //console.log(volumeRain);
   }
 
+  let regenPuffer = 0;
+  let regenMap = 0;
   p.geschwindigkeitBerechnenRain = function () {
 
     let geschwindigkeit = p.abs(zeigefinger.y - letztePositionRain.y);
     letztePositionRain.y = zeigefinger.y;
-    //p.text(p.int(geschwindigkeit), 100,100);
-    if (geschwindigkeit <= 7) {
+   
+    
+    regenPuffer = regenPuffer + geschwindigkeit;
+    
+    
+     if (geschwindigkeit <= 0.07) {
+      if (regenPuffer <= 0) {
+        regenPuffer = 0;
+      } else {
+        regenPuffer = regenPuffer - 25.2;
+      }
+    } else {
+      if(regenPuffer <= 1700){
+        regenPuffer = regenPuffer + geschwindigkeit*1.3;
+      } else{
+        regenPuffer = 1700;
+      }
+    }
+    regenMap = p.map(regenPuffer,0,1750, 0, 800);
+    //p.ellipse(zeigefinger.x,zeigefinger.y,regenPuffer);
+     //p.text((regenPuffer), 100,100);
+   /* if (geschwindigkeit <= 0.1) {
+      
+      
       if (regenStaerke <= 10) {
         regenStaerke = 0;
       } else {
@@ -495,12 +522,12 @@ let sketch = function (p) {
       }
 
     } else {
-      if(regenStaerke < 950){
-        regenStaerke = regenStaerke + geschwindigkeit / 5;
+      if(regenStaerke < 900){
+        regenStaerke = regenStaerke + geschwindigkeit *0.2;
       }
-    }
+    } */
 
-    volumeRain = p.map(regenStaerke, 0, 50, 0, 0.6);
+    volumeRain = p.map(regenMap, 0, 700, 0, 0.5);
     sound.setVolume(volumeRain);
   }
 
@@ -508,7 +535,8 @@ let sketch = function (p) {
   Regen: hier definieren wir i darstellung des regens */
 
   p.regen = function () {
-    for (let i = 0; i < regenStaerke; i++) {
+    let constrainedMap = p.constrain(regenMap, 0, 750);
+    for (let i = 0; i < constrainedMap; i++) {
       drops[i].fall();
       drops[i].show();
     }
@@ -601,25 +629,25 @@ let sketch = function (p) {
       //(die Zahlen [4] und [8] geben an, welche Punkte genau abgelesen werden)
       //mit der MAP funktion wird die Position der Punkte an die Größe des Bildschirms angepasst
       punktA.x = p.map(bodyPositionen[19].x, 1, 0, 0, width);
-      punktA.y = p.map(bodyPositionen[19].y, 0, 1, 0, height);
+      punktA.y = p.map(bodyPositionen[19].y, 0, 1, 300, height);
 
       punktB.x = p.map(bodyPositionen[20].x, 1, 0, 0, width);
-      punktB.y = p.map(bodyPositionen[20].y, 0, 1, 0, height);
+      punktB.y = p.map(bodyPositionen[20].y, 0, 1, 300, height);
 
       punktC.x = p.map(bodyPositionen[13].x, 1, 0, 0, width);
-      punktC.y = p.map(bodyPositionen[13].y, 0, 1, 0, height);
+      punktC.y = p.map(bodyPositionen[13].y, 0, 1, 300, height);
 
       punktD.x = p.map(bodyPositionen[14].x, 1, 0, 0, width);
-      punktD.y = p.map(bodyPositionen[14].y, 0, 1, 0, height);
+      punktD.y = p.map(bodyPositionen[14].y, 0, 1, 300, height);
 
       punktE.x = p.map(bodyPositionen[11].x, 1, 0, 0, width);
-      punktE.y = p.map(bodyPositionen[11].y, 0, 1, 0, height);
+      punktE.y = p.map(bodyPositionen[11].y, 0, 1, 300, height);
 
       punktF.x = p.map(bodyPositionen[12].x, 1, 0, 0, width);
-      punktF.y = p.map(bodyPositionen[12].y, 0, 1, 0, height);
+      punktF.y = p.map(bodyPositionen[12].y, 0, 1, 300, height);
 
       punktG.x = p.map(bodyPositionen[15].x, 1, 0, 0, width);
-      punktG.y = p.map(bodyPositionen[15].y, 0, 1, 0, height);
+      punktG.y = p.map(bodyPositionen[15].y, 0, 1, 300, height);
 
       punktH.x = p.map(bodyPositionen[16].x, 1, 0, 0, width);
       punktH.y = p.map(bodyPositionen[16].y, 0, 1, 0, height);
